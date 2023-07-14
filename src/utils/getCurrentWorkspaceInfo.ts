@@ -9,7 +9,7 @@ export function getCurrentWorkspaceInfo(): WorkspaceInfo {
     languages: [],
     mainFramework: undefined,
     name: '',
-    subFrameworks: [],
     rootPath,
+    subFrameworks: [],
   }
 }

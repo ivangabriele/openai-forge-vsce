@@ -1,16 +1,12 @@
 import { type ExtensionContext, workspace, commands } from 'vscode'
-import { type WebSocket, WebSocketServer } from 'ws'
 
-import { fake } from './commands/fake'
+import { addOrRemoveCurrentDocument } from './commands/addOrRemoveCurrentDocument'
 import { sendCurrentDocument } from './commands/sendCurrentDocumentOrStack'
+import { stateManager } from './libs/stateManager'
 import { handleError } from './utils/handleError'
+import { startWebSocketServer } from './utils/startWebSocketServer'
 import { updateStackStatusBarItem } from './utils/updateStackStatusBarItem'
 import { updateStateStatusBarItem } from './utils/updateStateStatusBarItem'
-import { addOrRemoveCurrentDocument } from './commands/addOrRemoveCurrentDocument'
-import { stateManager } from './libs/stateManager'
-import { State } from './types'
-
-const WEB_SOCKET_CLIENTS = new Set<WebSocket>()
 
 export async function activate(context: ExtensionContext) {
   try {
@@ -30,24 +26,7 @@ export async function activate(context: ExtensionContext) {
     // -------------------------------------------------------------------------
     // WebSocket Server
 
-    const webSockerServer = new WebSocketServer({ port: 4242 })
-
-    webSockerServer.on('connection', webSocket => {
-      stateManager.clients.add(webSocket)
-      updateStateStatusBarItem()
-
-      webSocket.on('message', message => {
-        console.debug(`New message received: ${message}.`)
-      })
-
-      webSocket.on('close', () => {
-        stateManager.clients.delete(webSocket)
-        updateStateStatusBarItem()
-      })
-    })
-
-    stateManager.state = State.RUNNING
-    updateStateStatusBarItem()
+    startWebSocketServer()
 
     // -------------------------------------------------------------------------
     // Commands
@@ -56,15 +35,11 @@ export async function activate(context: ExtensionContext) {
       'extension.openai-forge.addOrRemoveCurrentDocument',
       addOrRemoveCurrentDocument,
     )
-    const fakeDisposable = commands.registerCommand('extension.openai-forge.fake', fake)
     const sendCurrentDocumentDisposable = commands.registerCommand('extension.openai-forge.sendCurrentDocument', () => {
-      for (const webSocketClient of WEB_SOCKET_CLIENTS) {
-        sendCurrentDocument(webSocketClient)
-      }
+      stateManager.clients.forEach(sendCurrentDocument)
     })
 
     context.subscriptions.push(addOrRemoveCurrentDocumentDisposable)
-    context.subscriptions.push(fakeDisposable)
     context.subscriptions.push(sendCurrentDocumentDisposable)
   } catch (err) {
     handleError(err)

@@ -1,8 +1,9 @@
 import { window, type StatusBarItem, StatusBarAlignment } from 'vscode'
-import { stateManager } from '../libs/stateManager'
-import { State } from '../types'
+
 import { STATE_ICON, STATE_LABEL } from '../constants'
 import { InternalError } from '../libs/InternalError'
+import { stateManager } from '../libs/stateManager'
+import { State } from '../types'
 
 let STATE_STATUS_BAR_ITEM: StatusBarItem
 
@@ -12,8 +13,6 @@ export function updateStateStatusBarItem() {
 
     STATE_STATUS_BAR_ITEM.show()
   }
-
-  console.log(stateManager.clients)
 
   switch (stateManager.state) {
     case State.RUNNING:

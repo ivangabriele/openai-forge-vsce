@@ -5,7 +5,7 @@
     "project": "./tsconfig.json"
   },
   "rules": {
-    "no-console": ["warning", { "allow": ["error", "info", "warn"] }],
+    "no-console": ["warn", { "allow": ["error", "info", "warn"] }],
 
     "import/no-extraneous-dependencies": "off"
   }
