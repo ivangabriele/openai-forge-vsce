@@ -1,0 +1,12 @@
+{
+  "extends": "@ivangabriele/eslint-config-typescript-base",
+  "ignorePatterns": ["build/*"],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "no-console": ["warning", { "allow": ["error", "info", "warn"] }],
+
+    "import/no-extraneous-dependencies": "off"
+  }
+}

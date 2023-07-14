@@ -1,0 +1,19 @@
+name: Merge Release Pull Request
+
+on:
+  pull_request:
+    types: [edited, opened, synchronize]
+
+jobs:
+  merge:
+    name: Merge Release Pull Request
+    if: ${{ startsWith(github.head_ref, 'ci-release-v') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge pull request
+        uses: pascalgn/automerge-action@v0.15.6
+        # https://github.com/pascalgn/automerge-action#configuration
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          MERGE_LABELS: ''
+          MERGE_METHOD: rebase
