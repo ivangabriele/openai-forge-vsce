@@ -48,6 +48,7 @@
     "eslint-plugin-sort-destructure-keys": "1.5.0",
     "eslint-plugin-sort-keys-fix": "1.1.2",
     "eslint-plugin-typescript-sort-keys": "2.3.0",
+    "execa": "7.1.1",
     "globby": "13.2.2",
     "jest": "29.6.1",
     "mocha": "10.2.0",
@@ -76,8 +77,12 @@
         "title": "OpenAI Forge: Add/Remove current document to/from the stack"
       },
       {
+        "command": "openai-forge.evaluateAndSendCurrentDocumentOrStack",
+        "title": "OpenAI Forge: Evaluate errors and send them with the current document or stack"
+      },
+      {
         "command": "openai-forge.sendCurrentDocument",
-        "title": "OpenAI Forge: Send current document or documents stack"
+        "title": "OpenAI Forge: Send current document or stack"
       }
     ],
     "configuration": {
@@ -99,6 +104,16 @@
       {
         "command": "openai-forge.addOrRemoveCurrentDocument",
         "key": "alt+f alt+a",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "openai-forge.evaluateAndSendCurrentDocumentOrStack",
+        "key": "alt+f e",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "openai-forge.evaluateAndSendCurrentDocumentOrStack",
+        "key": "alt+f alt+e",
         "when": "editorTextFocus"
       },
       {

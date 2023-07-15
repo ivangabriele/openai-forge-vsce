@@ -1,5 +1,19 @@
 import { State } from './types'
 
+export const IGNORED_DIRECTORY_GLOBS = [
+  '.git',
+  '.github',
+  '.idea',
+  '.vscode',
+  '.yarn',
+  '__pycache__',
+  'build',
+  'dist',
+  'node_modules',
+  'target',
+  'vendor',
+].map(directory => `!**/${directory}/**`)
+
 export const STATE_ICON: Record<State, string> = {
   [State.FAILED]: 'error',
   [State.RUNNING]: 'radio-tower',

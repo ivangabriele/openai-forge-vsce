@@ -1,6 +1,7 @@
 import { globby } from 'globby'
 import { ascend, identity } from 'ramda'
 
+import { IGNORED_DIRECTORY_GLOBS } from '../constants'
 import { ProjectLanguage } from '../types'
 
 export const PROJECT_LANGUAGE_TO_EXTENSIONS_MAP: Record<ProjectLanguage, string[]> = {
@@ -22,28 +23,11 @@ export const PROJECT_LANGUAGE_TO_EXTENSIONS_MAP: Record<ProjectLanguage, string[
 
 const PROJECT_LANGUAGE_EXTENSIONS_AS_STRING = Object.values(PROJECT_LANGUAGE_TO_EXTENSIONS_MAP).flat().join(',')
 
-const COMMONLY_NON_SOURCE_CODE_DIRECTORIES = [
-  '.git',
-  '.github',
-  '.idea',
-  '.vscode',
-  '.yarn',
-  '__pycache__',
-  'build',
-  'dist',
-  'node_modules',
-  'target',
-  'vendor',
-].map(directory => `!**/${directory}/**`)
-
 export async function getSourceCodeDocumentPaths(workspacePath: string): Promise<string[]> {
-  const paths = await globby(
-    [`**/*.{${PROJECT_LANGUAGE_EXTENSIONS_AS_STRING}}`, ...COMMONLY_NON_SOURCE_CODE_DIRECTORIES],
-    {
-      cwd: workspacePath,
-      gitignore: true,
-    },
-  )
+  const paths = await globby([`**/*.{${PROJECT_LANGUAGE_EXTENSIONS_AS_STRING}}`, ...IGNORED_DIRECTORY_GLOBS], {
+    cwd: workspacePath,
+    gitignore: true,
+  })
   const sortedPaths = paths.sort(ascend(identity))
 
   return sortedPaths

@@ -1,9 +1,15 @@
 import type { DocumentInfo } from '../libs/DocumentInfo'
 import type { WorkspaceInfo } from '../types'
 
+type FormatPromptOptions = {
+  errorOutput?: string
+  userMessage?: string | undefined
+  workspaceInfo?: WorkspaceInfo | undefined
+}
+
 export async function formatPrompt(
-  workspaceInfo: WorkspaceInfo | undefined,
   documentInfos: DocumentInfo[],
+  { errorOutput, userMessage, workspaceInfo }: FormatPromptOptions = {},
 ): Promise<string> {
   const documents = await Promise.all(
     documentInfos.map(async documentInfo => ({
@@ -17,7 +23,7 @@ export async function formatPrompt(
       ? [
           `Project:`,
           `- Name: ${workspaceInfo.name}`,
-          ...(workspaceInfo.frameworks.length ? [`- Framework: ${workspaceInfo.frameworks.join(', ')}`] : []),
+          ...(workspaceInfo.frameworks.length ? [`- Frameworks: ${workspaceInfo.frameworks.join(', ')}`] : []),
           `- Languages: ${workspaceInfo.languages.join(', ')}`,
           '',
         ]
@@ -36,5 +42,7 @@ export async function formatPrompt(
         [] as string[],
       ),
     )
+    .concat(errorOutput ? ['', 'Errors:', '```', errorOutput, '```'] : [])
+    .concat(userMessage ? ['', userMessage] : [])
     .join('\n')
 }

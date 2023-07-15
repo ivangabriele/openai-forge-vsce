@@ -29,7 +29,16 @@ export enum State {
   'STOPPING' = 'STOPPING',
 }
 
+export type WorkspaceEvaluator = {
+  command: string
+  commandArgs: string[]
+  extensions: string[]
+  extraExtensions: string[]
+  workingDirectoryPath: string
+}
+
 export type WorkspaceInfo = {
+  evaluators: WorkspaceEvaluator[]
   frameworks: ProjectFramework[]
   languages: ProjectLanguage[]
   name: string

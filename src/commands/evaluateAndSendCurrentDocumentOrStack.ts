@@ -5,26 +5,28 @@ import { stackManager } from '../libs/stackManager'
 import { WebSocketDataAction, type WebSocketData } from '../types'
 import { formatPrompt } from '../utils/formatPrompt'
 import { getCurrentWorkspaceInfo } from '../utils/getCurrentWorkspaceInfo'
+import { runEvaluator } from '../utils/runEvaluator'
 
 import type { WebSocket } from 'ws'
 
-export async function sendCurrentDocument(webSocket: WebSocket) {
+export async function evaluateAndSendCurrentDocumentOrStack(webSocket: WebSocket) {
   const excludeProjectInfo = workspace.getConfiguration('openai-forge').get<boolean>('promt.excludeProjectInfo')
 
-  const currentWorkspaceInfo = !excludeProjectInfo ? await getCurrentWorkspaceInfo() : undefined
+  const currentWorkspaceInfo = await getCurrentWorkspaceInfo()
   const currentOrStackDocumentInfos = stackManager.documentInfos.length
     ? stackManager.documentInfos
     : [new DocumentInfo()]
 
-  const maybeUserMessage = await window.showInputBox({
-    placeHolder: 'Just press enter to skip',
-    prompt: 'Do you want to add a message to the prompt?',
-  })
-  const userMessage = maybeUserMessage && maybeUserMessage.trim().length > 0 ? maybeUserMessage : undefined
+  const errorOutput = await runEvaluator(currentOrStackDocumentInfos, currentWorkspaceInfo)
+  if (!errorOutput) {
+    window.showWarningMessage('OpenAI Forge: No error output to send. Aborting.')
+
+    return
+  }
 
   const message = await formatPrompt(currentOrStackDocumentInfos, {
-    userMessage,
-    workspaceInfo: currentWorkspaceInfo,
+    errorOutput,
+    workspaceInfo: !excludeProjectInfo ? currentWorkspaceInfo : undefined,
   })
 
   const webSocketData: WebSocketData = {

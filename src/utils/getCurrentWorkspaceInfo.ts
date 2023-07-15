@@ -3,6 +3,7 @@ import { getProjectName } from './getProjectName'
 import { getSourceCodeDocumentLanguagesStat } from './getSourceCodeDocumentLanguagesStat'
 import { getSourceCodeDocumentMainLanguages } from './getSourceCodeDocumentMainLanguages'
 import { getSourceCodeDocumentPaths } from './getSourceCodeDocumentPaths'
+import { getWorkspaceEvaluators } from './getWorkspaceEvaluators'
 import { getWorkspaceRootPath } from './getWorkspaceRootPath'
 import { UserError } from '../libs/UserError'
 import { type WorkspaceInfo } from '../types'
@@ -22,11 +23,14 @@ export async function getCurrentWorkspaceInfo(mustRefresh: boolean = false): Pro
       throw new UserError("OpenAI Forge couldn't detect any of the supported languages for this workspace.")
     }
 
+    const evaluators = await getWorkspaceEvaluators(rootPath)
+
     const frameworks = await getProjectFrameworks(rootPath, sourceCodeDocumentPaths)
 
     const sourceCodeDocumentsLength = sourceCodeDocumentPaths.length
 
     WORKSPACE_INFO = {
+      evaluators,
       frameworks,
       languages,
       name,

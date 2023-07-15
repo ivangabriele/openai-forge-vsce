@@ -1,11 +1,12 @@
 import { type ExtensionContext, workspace, commands } from 'vscode'
 
 import { addOrRemoveCurrentDocument } from './commands/addOrRemoveCurrentDocument'
+import { evaluateAndSendCurrentDocumentOrStack } from './commands/evaluateAndSendCurrentDocumentOrStack'
 import { sendCurrentDocument } from './commands/sendCurrentDocumentOrStack'
 import { server } from './libs/server'
+import { stackManager } from './libs/stackManager'
 import { stateManager } from './libs/stateManager'
 import { handleError } from './utils/handleError'
-import { updateStackStatusBarItem } from './utils/updateStackStatusBarItem'
 import { updateStateStatusBarItem } from './utils/updateStateStatusBarItem'
 
 export async function activate(context: ExtensionContext) {
@@ -24,18 +25,25 @@ export async function activate(context: ExtensionContext) {
       'openai-forge.addOrRemoveCurrentDocument',
       addOrRemoveCurrentDocument,
     )
+    const evaluateAndSendCurrentDocumentOrStackDisposable = commands.registerCommand(
+      'openai-forge.evaluateAndSendCurrentDocumentOrStack',
+      () => {
+        stateManager.clients.forEach(evaluateAndSendCurrentDocumentOrStack)
+      },
+    )
     const sendCurrentDocumentDisposable = commands.registerCommand('openai-forge.sendCurrentDocument', () => {
       stateManager.clients.forEach(sendCurrentDocument)
     })
 
     context.subscriptions.push(addOrRemoveCurrentDocumentDisposable)
+    context.subscriptions.push(evaluateAndSendCurrentDocumentOrStackDisposable)
     context.subscriptions.push(sendCurrentDocumentDisposable)
 
     // -------------------------------------------------------------------------
     // Status Bar Items
 
     updateStateStatusBarItem()
-    updateStackStatusBarItem()
+    stackManager.updateStatusBarItem()
 
     // -------------------------------------------------------------------------
     // WebSocket Server
@@ -45,7 +53,7 @@ export async function activate(context: ExtensionContext) {
     handleError(err)
 
     server.stop()
-    updateStackStatusBarItem(true)
+    stackManager.updateStatusBarItem(true)
   }
 }
 

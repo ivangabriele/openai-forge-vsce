@@ -1,7 +1,6 @@
 import { DocumentInfo } from '../libs/DocumentInfo'
 import { stackManager } from '../libs/stackManager'
 import { getCurrentDocumentPath } from '../utils/getCurrentDocumentPath'
-import { updateStackStatusBarItem } from '../utils/updateStackStatusBarItem'
 
 type AddOrRemoveCurrentDocumentArgs = {
   absolutePath: string
@@ -23,6 +22,4 @@ export function addOrRemoveCurrentDocument(args?: AddOrRemoveCurrentDocumentArgs
       ({ absolutePath }) => absolutePath !== currentDocumentAbsolutePath,
     )
   }
-
-  updateStackStatusBarItem()
 }
