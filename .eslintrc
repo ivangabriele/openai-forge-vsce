@@ -1,6 +1,6 @@
 {
   "extends": "@ivangabriele/eslint-config-typescript-base",
-  "ignorePatterns": ["build/*"],
+  "ignorePatterns": ["config/*", "dist/*"],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
