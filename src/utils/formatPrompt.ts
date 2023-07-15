@@ -1,31 +1,36 @@
-import { workspace } from 'vscode'
+import type { DocumentInfo } from '../libs/DocumentInfo'
+import type { WorkspaceInfo } from '../types'
 
-import type { DocumentInfo, WorkspaceInfo } from '../types'
-
-export function formatPrompt(workspaceInfo: WorkspaceInfo, documentInfos: DocumentInfo[]): string {
-  const excludeProjectInfo = workspace.getConfiguration('openai-forge').get<boolean>('promt.excludeProjectInfo')
+export async function formatPrompt(
+  workspaceInfo: WorkspaceInfo | undefined,
+  documentInfos: DocumentInfo[],
+): Promise<string> {
+  const documents = await Promise.all(
+    documentInfos.map(async documentInfo => ({
+      relativePath: documentInfo.relativePath,
+      source: await documentInfo.getSource(),
+    })),
+  )
 
   return (
-    !excludeProjectInfo
+    workspaceInfo
       ? [
           `Project:`,
           `- Name: ${workspaceInfo.name}`,
-          ...(workspaceInfo.mainFramework
-            ? [`- Framework: ${workspaceInfo.mainFramework}, ${workspaceInfo.subFrameworks.join(', ')}`]
-            : []),
+          ...(workspaceInfo.frameworks.length ? [`- Framework: ${workspaceInfo.frameworks.join(', ')}`] : []),
           `- Languages: ${workspaceInfo.languages.join(', ')}`,
           '',
         ]
       : []
   )
     .concat(
-      documentInfos.reduce(
-        (lines, documentInfo, index) => [
+      documents.reduce(
+        (lines, document, index) => [
           ...lines,
           ...(index > 0 ? [''] : []),
-          `${documentInfo.relativePath}:`,
+          `${document.relativePath}:`,
           '```',
-          documentInfo.source,
+          document.source,
           '```',
         ],
         [] as string[],

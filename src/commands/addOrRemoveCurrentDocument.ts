@@ -1,19 +1,26 @@
+import { DocumentInfo } from '../libs/DocumentInfo'
 import { stackManager } from '../libs/stackManager'
-import { getCurrentDocumentInfo } from '../utils/getCurrentDocumentInfo'
+import { getCurrentDocumentPath } from '../utils/getCurrentDocumentPath'
 import { updateStackStatusBarItem } from '../utils/updateStackStatusBarItem'
 
-export function addOrRemoveCurrentDocument() {
-  const currentDocumentInfo = getCurrentDocumentInfo()
+type AddOrRemoveCurrentDocumentArgs = {
+  absolutePath: string
+}
+
+export function addOrRemoveCurrentDocument(args?: AddOrRemoveCurrentDocumentArgs) {
+  const currentDocumentAbsolutePath = args ? args.absolutePath : getCurrentDocumentPath()
 
   const isCurrentDocumentSelected = stackManager.documentInfos.some(
-    ({ absolutePath }) => absolutePath === currentDocumentInfo.absolutePath,
+    ({ absolutePath }) => absolutePath === currentDocumentAbsolutePath,
   )
 
   if (!isCurrentDocumentSelected) {
+    const currentDocumentInfo = new DocumentInfo()
+
     stackManager.documentInfos = [...stackManager.documentInfos, currentDocumentInfo]
   } else {
     stackManager.documentInfos = stackManager.documentInfos.filter(
-      ({ absolutePath }) => absolutePath !== currentDocumentInfo.absolutePath,
+      ({ absolutePath }) => absolutePath !== currentDocumentAbsolutePath,
     )
   }
 

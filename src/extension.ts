@@ -2,9 +2,9 @@ import { type ExtensionContext, workspace, commands } from 'vscode'
 
 import { addOrRemoveCurrentDocument } from './commands/addOrRemoveCurrentDocument'
 import { sendCurrentDocument } from './commands/sendCurrentDocumentOrStack'
+import { server } from './libs/server'
 import { stateManager } from './libs/stateManager'
 import { handleError } from './utils/handleError'
-import { startWebSocketServer } from './utils/startWebSocketServer'
 import { updateStackStatusBarItem } from './utils/updateStackStatusBarItem'
 import { updateStateStatusBarItem } from './utils/updateStateStatusBarItem'
 
@@ -18,6 +18,20 @@ export async function activate(context: ExtensionContext) {
     }
 
     // -------------------------------------------------------------------------
+    // Commands
+
+    const addOrRemoveCurrentDocumentDisposable = commands.registerCommand(
+      'openai-forge.addOrRemoveCurrentDocument',
+      addOrRemoveCurrentDocument,
+    )
+    const sendCurrentDocumentDisposable = commands.registerCommand('openai-forge.sendCurrentDocument', () => {
+      stateManager.clients.forEach(sendCurrentDocument)
+    })
+
+    context.subscriptions.push(addOrRemoveCurrentDocumentDisposable)
+    context.subscriptions.push(sendCurrentDocumentDisposable)
+
+    // -------------------------------------------------------------------------
     // Status Bar Items
 
     updateStateStatusBarItem()
@@ -26,24 +40,15 @@ export async function activate(context: ExtensionContext) {
     // -------------------------------------------------------------------------
     // WebSocket Server
 
-    startWebSocketServer()
-
-    // -------------------------------------------------------------------------
-    // Commands
-
-    const addOrRemoveCurrentDocumentDisposable = commands.registerCommand(
-      'extension.openai-forge.addOrRemoveCurrentDocument',
-      addOrRemoveCurrentDocument,
-    )
-    const sendCurrentDocumentDisposable = commands.registerCommand('extension.openai-forge.sendCurrentDocument', () => {
-      stateManager.clients.forEach(sendCurrentDocument)
-    })
-
-    context.subscriptions.push(addOrRemoveCurrentDocumentDisposable)
-    context.subscriptions.push(sendCurrentDocumentDisposable)
+    server.start()
   } catch (err) {
     handleError(err)
+
+    server.stop()
+    updateStackStatusBarItem(true)
   }
 }
 
-export function deactivate() {}
+export function deactivate() {
+  server.stop()
+}

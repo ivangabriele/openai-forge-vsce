@@ -1,21 +1,28 @@
-export type DocumentInfo = {
-  absolutePath: string
-  relativePath: string
-  source: string
-}
-
 export enum ProjectFramework {
+  NEXT_JS = 'Next.js',
   REACT = 'React',
   TAURI = 'Tauri',
 }
 
 export enum ProjectLanguage {
+  C_SHARP = 'C#',
+  DART = 'Dart',
+  ELIXIR = 'Elixir',
+  GO = 'Go',
+  HASKELL = 'Haskell',
+  JAVA = 'Java',
   JAVASCRIPT = 'JavaScript',
+  KOTLIN = 'Kotlin',
+  PHP = 'PHP',
+  PYTHON = 'Python',
+  RUBY = 'Ruby',
   RUST = 'Rust',
+  SCALA = 'Scala',
   TYPESCRIPT = 'TypeScript',
 }
 
 export enum State {
+  'FAILED' = 'FAILED',
   'RUNNING' = 'RUNNING',
   'STARTING' = 'STARTING',
   'STOPPED' = 'STOPPED',
@@ -23,11 +30,11 @@ export enum State {
 }
 
 export type WorkspaceInfo = {
+  frameworks: ProjectFramework[]
   languages: ProjectLanguage[]
-  mainFramework: ProjectFramework | undefined
   name: string
   rootPath: string
-  subFrameworks: ProjectFramework[]
+  sourceCodeDocumentsLength: number
 }
 
 export enum WebSocketDataAction {

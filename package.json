@@ -11,11 +11,12 @@
   "main": "./dist/extension.js",
   "scripts": {
     "build": "rollup -c",
-    "bundle": "(rm -Rf *.vsix || true) && vsce package --yarn",
+    "bundle": "yarn clean && yarn build && (rm -Rf *.vsix || true) && vsce package --yarn",
     "clean": "rm -Rf ./dist",
     "release": "semantic-release && vsce publish --yarn",
-    "test:unit": "jest --config ./config/jest.config.js",
-    "watch": "yarn clean && yarn build"
+    "test:lint": "eslint .",
+    "test:type": "tsc --noEmit",
+    "test:unit": "jest --config ./config/jest.config.js"
   },
   "devDependencies": {
     "@ivangabriele/eslint-config-typescript-base": "7.1.1",
@@ -47,6 +48,7 @@
     "eslint-plugin-sort-destructure-keys": "1.5.0",
     "eslint-plugin-sort-keys-fix": "1.1.2",
     "eslint-plugin-typescript-sort-keys": "2.3.0",
+    "globby": "13.2.2",
     "jest": "29.6.1",
     "mocha": "10.2.0",
     "prettier": "2.8.8",
@@ -70,11 +72,11 @@
   "contributes": {
     "commands": [
       {
-        "command": "extension.openai-forge.addOrRemoveCurrentDocument",
+        "command": "openai-forge.addOrRemoveCurrentDocument",
         "title": "OpenAI Forge: Add/Remove current document to/from the stack"
       },
       {
-        "command": "extension.openai-forge.sendCurrentDocument",
+        "command": "openai-forge.sendCurrentDocument",
         "title": "OpenAI Forge: Send current document or documents stack"
       }
     ],
@@ -90,13 +92,23 @@
     },
     "keybindings": [
       {
-        "command": "extension.openai-forge.addOrRemoveCurrentDocument",
+        "command": "openai-forge.addOrRemoveCurrentDocument",
         "key": "alt+f a",
         "when": "editorTextFocus"
       },
       {
-        "command": "extension.openai-forge.sendCurrentDocument",
+        "command": "openai-forge.addOrRemoveCurrentDocument",
+        "key": "alt+f alt+a",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "openai-forge.sendCurrentDocument",
         "key": "alt+f s",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "openai-forge.sendCurrentDocument",
+        "key": "alt+f alt+s",
         "when": "editorTextFocus"
       }
     ]

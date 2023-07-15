@@ -1,4 +1,4 @@
-import type { DocumentInfo } from '../types'
+import type { DocumentInfo } from './DocumentInfo'
 
 class StackManager {
   #documentInfos: DocumentInfo[] = []

@@ -5,11 +5,11 @@ import { InternalError } from '../libs/InternalError'
 import { stateManager } from '../libs/stateManager'
 import { State } from '../types'
 
-let STATE_STATUS_BAR_ITEM: StatusBarItem
+let STATE_STATUS_BAR_ITEM: StatusBarItem | undefined
 
 export function updateStateStatusBarItem() {
   if (!STATE_STATUS_BAR_ITEM) {
-    STATE_STATUS_BAR_ITEM = window.createStatusBarItem(StatusBarAlignment.Left, 1)
+    STATE_STATUS_BAR_ITEM = window.createStatusBarItem(StatusBarAlignment.Left, 2)
 
     STATE_STATUS_BAR_ITEM.show()
   }

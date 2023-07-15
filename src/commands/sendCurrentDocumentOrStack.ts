@@ -1,22 +1,26 @@
+import { workspace } from 'vscode'
+
+import { DocumentInfo } from '../libs/DocumentInfo'
 import { stackManager } from '../libs/stackManager'
 import { WebSocketDataAction, type WebSocketData } from '../types'
 import { formatPrompt } from '../utils/formatPrompt'
-import { getCurrentDocumentInfo } from '../utils/getCurrentDocumentInfo'
 import { getCurrentWorkspaceInfo } from '../utils/getCurrentWorkspaceInfo'
 
 import type { WebSocket } from 'ws'
 
-export function sendCurrentDocument(webSocket: WebSocket) {
-  const currentWorkspaceInfo = getCurrentWorkspaceInfo()
+export async function sendCurrentDocument(webSocket: WebSocket) {
+  const excludeProjectInfo = workspace.getConfiguration('openai-forge').get<boolean>('promt.excludeProjectInfo')
+
+  const currentWorkspaceInfo = !excludeProjectInfo ? await getCurrentWorkspaceInfo() : undefined
   const currentOrStackDocumentInfos = stackManager.documentInfos.length
     ? stackManager.documentInfos
-    : [getCurrentDocumentInfo()]
+    : [new DocumentInfo()]
 
-  const promptMessage = formatPrompt(currentWorkspaceInfo, currentOrStackDocumentInfos)
+  const message = await formatPrompt(currentWorkspaceInfo, currentOrStackDocumentInfos)
 
   const webSocketData: WebSocketData = {
     action: WebSocketDataAction.ASK,
-    message: promptMessage,
+    message,
   }
 
   webSocket.send(JSON.stringify(webSocketData))
