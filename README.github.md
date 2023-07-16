@@ -1,9 +1,6 @@
 <p align="center">
-  <img alt="OpenAI Forge Logo" height="128" src="assets/icons/x512.png" />
-  <hgroup>
-    <p align="center" style="color: #e52b50; font-size: 250%; linee-height: 0; margin-bottom: 0">OpenAI Forge</p>
-    <p align="center" style="font-size: 125%">Visual Studio Code Extension</p>
-  </hgroup>
+  <img alt="OpenAI Forge Logo" height="128" src="assets/icons/icon.png" />
+  <img alt="OpenAI Forge Header" width="100%" src="assets/docs/readme-header.svg" />
 </p>
 
 ---
