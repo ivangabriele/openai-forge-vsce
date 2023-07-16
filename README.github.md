@@ -1,11 +1,15 @@
 <p align="center">
-  <img alt="OpenAI Forge Logo" height="128" src="assets/icons/icon.png" />
+  <img alt="OpenAI Forge Logo" height="128" src="assets/icons/icon.svg" />
   <img alt="OpenAI Forge Header" width="100%" src="assets/docs/readme-header.svg" />
 </p>
 
 ---
 
 > OpenAI Forge automates your communication between Visual Studio Code and ChatGPT 🤖.
+
+## Screencast
+
+<video src="https://github.com/ivangabriele/openai-forge-vsce/assets/5957876/fbb5ba36-a9b5-4251-868c-0fa6ef1676b5" width="100%"></video>
 
 ## Requirements
 
