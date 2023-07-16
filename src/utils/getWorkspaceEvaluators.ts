@@ -1,5 +1,6 @@
 import { globby } from 'globby'
 import { dirname, sep } from 'path'
+import { equals } from 'ramda'
 
 import { IGNORED_DIRECTORY_GLOBS } from '../constants'
 import { type WorkspaceEvaluator } from '../types'
@@ -25,13 +26,15 @@ export async function getWorkspaceEvaluators(workspacePath: string): Promise<Wor
   const evaluators: WorkspaceEvaluator[] = absolutePathsSortedByDepth.reduce((previousEvaluators, absolutePath) => {
     if (
       absolutePath.endsWith(`${sep}Cargo.toml`) &&
-      !previousEvaluators.find(evaluator => evaluator.command.includes('cargo run'))
+      !previousEvaluators.find(
+        evaluator => evaluator.command.includes('cargo') && equals(['build'], evaluator.commandArgs),
+      )
     ) {
       return [
         ...previousEvaluators,
         {
           command: 'cargo',
-          commandArgs: ['run'],
+          commandArgs: ['build'],
           extensions: ['.rs'],
           extraExtensions: ['.toml'],
           workingDirectoryPath: dirname(absolutePath),
