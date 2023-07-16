@@ -22,6 +22,8 @@ export async function sendCurrentDocument(webSocket: WebSocket) {
         ? stackManager.documentInfos
         : [new DocumentInfo()]
 
+      progress.report({ message: 'OpenAI Forge: Waiting for your prompt (or not)...' })
+
       const maybeUserMessage = await window.showInputBox({
         placeHolder: 'Just press enter to skip',
         prompt: 'Do you want to add a message to the prompt?',
