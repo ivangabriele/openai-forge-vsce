@@ -20,12 +20,12 @@ export function addOrRemoveCurrentDocument(args?: AddOrRemoveCurrentDocumentArgs
 
     stackManager.documentInfos = [...stackManager.documentInfos, currentDocumentInfo]
 
-    window.showInformationMessage(`OpenAI Forge: ${currentDocumentInfo.relativePath} unselected.`)
+    window.showInformationMessage(`OpenAI Forge: ${currentDocumentInfo.relativePath} selected.`)
   } else {
     stackManager.documentInfos = stackManager.documentInfos.filter(
       ({ absolutePath }) => absolutePath !== currentDocumentAbsolutePath,
     )
 
-    window.showInformationMessage(`OpenAI Forge: ${maybeExistingDocumentMatch.relativePath} selected.`)
+    window.showInformationMessage(`OpenAI Forge: ${maybeExistingDocumentMatch.relativePath} unselected.`)
   }
 }
