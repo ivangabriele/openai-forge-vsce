@@ -1,14 +1,15 @@
 <p align="center">
-  <img alt="OpenAI Forge Logo" height="128" src="assets/icons/x512.png" />
-  <hgroup>
-    <p align="center" style="color: #e52b50; font-size: 250%; linee-height: 0; margin-bottom: 0">OpenAI Forge</p>
-    <p align="center" style="font-size: 125%">Visual Studio Code Extension</p>
-  </hgroup>
+  <img alt="OpenAI Forge Logo" height="128" src="assets/icons/icon.svg" />
+  <img alt="OpenAI Forge Header" width="100%" src="assets/docs/readme-header.svg" />
 </p>
 
 ---
 
-> OpenAI Forge automates your communication between Visual Studio Code and ChatGPT 🤖.
+**OpenAI Forge automates your communication between Visual Studio Code and ChatGPT 🤖.**
+
+## Screencast
+
+https://github.com/ivangabriele/openai-forge-vsce/assets/5957876/fbb5ba36-a9b5-4251-868c-0fa6ef1676b5
 
 ## Requirements
 

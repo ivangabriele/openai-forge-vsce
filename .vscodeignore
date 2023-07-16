@@ -21,5 +21,7 @@ dist/test/**
 dist/**/*.js.map
 src/**
 
+!README.github.md
+
 **/*.svg
 **/*.vsix
