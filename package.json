@@ -133,17 +133,22 @@
     "email": "ivan.gabriele@gmail.com",
     "url": "https://www.ivangabriele.com"
   },
+  "bugs": {
+    "url": "https://github.com/ivangabriele/openai-forge-vsce/issues"
+  },
   "categories": [
     "Other"
   ],
+  "homepage": "https://github.com/ivangabriele/openai-forge-vsce#readme",
   "icon": "./assets/icons/x512.png",
   "keywords": [
+    "automation",
     "chatgpt",
     "openai"
   ],
   "publisher": "ivangabriele",
   "repository": {
     "type": "git",
-    "url": "https://github.com/inspired-beings/openai-forge-vsce.git"
+    "url": "https://github.com/ivangabriele/openai-forge-vsce.git"
   }
 }
