@@ -7,9 +7,7 @@
 
 > OpenAI Forge automates your communication between Visual Studio Code and ChatGPT 🤖.
 
-## Screencast
-
-<video src="https://github.com/ivangabriele/openai-forge-vsce/assets/5957876/fbb5ba36-a9b5-4251-868c-0fa6ef1676b5" width="100%"></video>
+https://github.com/ivangabriele/openai-forge-vsce/assets/5957876/fbb5ba36-a9b5-4251-868c-0fa6ef1676b5
 
 ## Requirements
 
