@@ -3,9 +3,21 @@
   <img alt="OpenAI Forge Header" width="100%" src="assets/docs/readme-header.svg" />
 </p>
 
----
+<p align="center">
+  <a href="https://github.com/ivangabriele/openai-forge-vsce/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/ivangabriele/openai-forge-vsce?style=for-the-badge" alt="AGPL License">
+  </a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=ivangabriele.openai-forge-vsce">
+    <img src="https://img.shields.io/visual-studio-marketplace/i/ivangabriele.openai-forge?style=for-the-badge" alt="Visual Studio Marketplace">
+  </a>
+  <a href="https://github.com/ivangabriele/openai-forge-vsce/actions?query=check">
+    <img src="https://img.shields.io/github/actions/workflow/status/ivangabriele/openai-forge-vsce/check.yml?label=Tests&amp;style=for-the-badge" alt="Check Workflow Status">
+  </a>
+</p>
 
-**OpenAI Forge automates your communication between Visual Studio Code and ChatGPT 🤖.**
+<p align="center"><b>Automate your communication between Visual Studio Code and ChatGPT 🤖.</b></p>
+
+---
 
 ## Screencast
 
