@@ -1,3 +1,17 @@
+# [1.1.0](https://github.com/ivangabriele/openai-forge-vsce/compare/v1.0.0...v1.1.0) (2023-07-16)
+
+
+### Bug Fixes
+
+* **commands:** add specific prompt notification message in send command ([628bef6](https://github.com/ivangabriele/openai-forge-vsce/commit/628bef650b1075954400e26f9ebec40421657ab5))
+* **commands:** fix notification message typo in add/remove command ([0dcc8f7](https://github.com/ivangabriele/openai-forge-vsce/commit/0dcc8f756a7d315773a1fd6737bf0d0103a859f3))
+
+
+### Features
+
+* add progress bars in eval & send commands ([fb04f86](https://github.com/ivangabriele/openai-forge-vsce/commit/fb04f86a5da370b99ddbee513db2560b458672fb))
+
+
 # 1.0.0 (2023-07-16)
 
 
