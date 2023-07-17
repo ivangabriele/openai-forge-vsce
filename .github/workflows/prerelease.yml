@@ -34,6 +34,6 @@ jobs:
         with:
           branch: ci-release-v${{ steps.get_version.outputs.version }}
           # https://docs.github.com/en/actions/managing-workflow-runs/skipping-workflow-runs
-          commit-message: 'ci(release): ${{ steps.get_version.outputs.version }}'
+          commit-message: 'ci(release): v${{ steps.get_version.outputs.version }}'
           title: 'ci(release): ${{ steps.get_version.outputs.version }}'
           token: ${{ secrets.GH_PAT }}

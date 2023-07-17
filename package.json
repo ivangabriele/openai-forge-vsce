@@ -15,7 +15,7 @@
     "build:readme:back": "mv ./README.md ./README.dist.md && mv ./README.github.md ./README.md",
     "bundle": "yarn clean && yarn build && yarn build:readme && (rm -Rf *.vsix || true) && vsce package --yarn && build:readme:back",
     "clean": "rm -Rf ./dist",
-    "release": "yarn build:readme && semantic-release && vsce publish --yarn && build:readme:back",
+    "release": "yarn build:readme && semantic-release && vsce publish --yarn && yarn build:readme:back",
     "test:lint": "eslint .",
     "test:type": "tsc --noEmit",
     "test:unit": "jest --config ./config/jest.config.js"
