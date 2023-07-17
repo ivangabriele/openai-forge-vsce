@@ -25,9 +25,10 @@ https://github.com/ivangabriele/openai-forge-vsce/assets/5957876/fbb5ba36-a9b5-4
 
 ## Requirements
 
-**YOU MUST INSTALL OpenAI Forge Browser Extension or this extension can't work.**
+**YOU MUST INSTALL [OpenAI Forge Browser Extension](https://github.com/ivangabriele/openai-forge-browser#readme)
+to make this extension work.**
 
-The communication with ChatGPT is done through the Browser Extension, via WebSocket.
+The communication with ChatGPT is done through the browser extension, via WebSocket.
 
 ## How it works?
 

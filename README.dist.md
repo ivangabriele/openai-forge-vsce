@@ -25,7 +25,8 @@
 
 ## Requirements
 
-**YOU MUST INSTALL OpenAI Forge Browser Extension or this extension can't work.**
+**YOU MUST INSTALL [OpenAI Forge Browser Extension](https://github.com/ivangabriele/openai-forge-browser#readme)
+to make this extension work.**
 
 The communication with ChatGPT is done through the Browser Extension, via WebSocket.
 
