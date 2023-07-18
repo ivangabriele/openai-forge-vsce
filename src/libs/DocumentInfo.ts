@@ -1,8 +1,8 @@
-import path, { extname } from 'path'
-import { Uri, window, workspace } from 'vscode'
+import { extname, normalize, relative } from 'path'
+import { Uri, workspace } from 'vscode'
 
 import { InternalError } from './InternalError'
-import { UserError } from './UserError'
+import { getCurrentDocumentPath } from '../utils/getCurrentDocumentPath'
 import { getUserWorkspaceRootPath } from '../utils/getUserWorkspaceRootPath'
 
 export class DocumentInfo {
@@ -11,17 +11,12 @@ export class DocumentInfo {
   #relativePath: string
   #workspaceRootPath: string
 
-  constructor() {
-    const editor = window.activeTextEditor
-    if (!editor) {
-      throw new UserError('No active text editor.')
-    }
-
+  constructor(abosultePath?: string) {
     const workspaceRootPath = getUserWorkspaceRootPath()
 
-    this.#absolutePath = editor.document.uri.fsPath
+    this.#absolutePath = abosultePath ? normalize(abosultePath) : getCurrentDocumentPath()
     this.#extension = extname(this.#absolutePath)
-    this.#relativePath = path.relative(workspaceRootPath, this.#absolutePath)
+    this.#relativePath = relative(workspaceRootPath, this.#absolutePath)
     this.#workspaceRootPath = workspaceRootPath
   }
 
@@ -32,7 +27,7 @@ export class DocumentInfo {
   set absolutePath(newAbsolutePath: string) {
     this.#absolutePath = newAbsolutePath
     this.#extension = extname(newAbsolutePath)
-    this.#relativePath = path.relative(this.#workspaceRootPath, newAbsolutePath)
+    this.#relativePath = relative(this.#workspaceRootPath, newAbsolutePath)
   }
 
   get extension(): string {

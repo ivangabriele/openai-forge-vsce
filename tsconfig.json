@@ -26,6 +26,6 @@
     "useUnknownInCatchVariables": true,
     "verbatimModuleSyntax": true
   },
-  "include": ["src/**/*", "rollup.config.mjs"],
+  "include": ["__mocks__/**/*", "src/**/*", "rollup.config.mjs"],
   "exclude": ["dist/*", "node_modules/*"]
 }
