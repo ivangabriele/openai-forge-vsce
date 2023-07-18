@@ -2,26 +2,23 @@
 .vscode/**
 .vscode-test/**
 .yarn/**
+config/**
 node_modules/**
 scripts/**
 
 .editorconfig
 .eslintrc
+.gitattributes
 .gitignore
 .yarnrc.yml
 rollup.config.mjs
 tsconfig.json
 yarn.lock
 
-assets/*
-!assets/icons
-assets/icons/*
-!assets/icons/x512.png
+assets/videos/**
 dist/test/**
 dist/**/*.js.map
 src/**
-
-!README.github.md
 
 **/*.svg
 **/*.vsix

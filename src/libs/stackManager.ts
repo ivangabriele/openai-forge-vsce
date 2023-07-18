@@ -19,7 +19,6 @@ class StackManager {
 
   constructor() {
     this.#statusBarItem = window.createStatusBarItem(StatusBarAlignment.Left, 1)
-
     this.#statusBarItem.show()
 
     this.#fileSystemWatcher = workspace.createFileSystemWatcher('**', false, true, true)
@@ -38,7 +37,11 @@ class StackManager {
     this.updateStatusBarItem()
   }
 
-  updateStatusBarItem(isFailure: boolean = false) {
+  hideStatusBarItem(): void {
+    this.#statusBarItem.hide()
+  }
+
+  updateStatusBarItem(isFailure: boolean = false): void {
     if (isFailure) {
       this.#statusBarItem.color = new ThemeColor('statusBarItem.errorForeground')
       this.#statusBarItem.text = '$(x) OpenAI Forge failed to run.'
@@ -53,7 +56,7 @@ class StackManager {
     this.#statusBarItem.tooltip = new MarkdownString(
       this.#documentInfos.length
         ? [
-            '| Document | |',
+            '| Stack | |',
             '| - | - |',
             ...this.#documentInfos.sort(ascend(prop('relativePath'))).map(
               documentInfo =>

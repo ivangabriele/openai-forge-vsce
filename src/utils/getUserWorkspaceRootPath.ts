@@ -2,7 +2,7 @@ import { workspace } from 'vscode'
 
 import { UserError } from '../libs/UserError'
 
-export function getWorkspaceRootPath(): string {
+export function getUserWorkspaceRootPath(): string {
   const { workspaceFolders } = workspace
   if (!workspaceFolders) {
     throw new UserError('You are not in a workspace.')

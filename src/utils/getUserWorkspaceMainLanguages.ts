@@ -1,8 +1,6 @@
 import { descend, filter, map, prop, sort, toPairs } from 'ramda'
 
-import { type SourceCodeDocumentLanguagesStat } from './getSourceCodeDocumentLanguagesStat'
-
-import type { ProjectLanguage } from '../types'
+import { type UserWorkspace } from '../types'
 
 const SIGNIFICANT_RATIO = 0.05
 const SIGNIFICANT_COUNT = 100
@@ -10,11 +8,11 @@ const SIGNIFICANT_COUNT = 100
 export function getSourceCodeDocumentMainLanguages({
   count: sourceCodeDocumentLanguagesCount,
   ratio: sourceCodeDocumentLanguagesRatio,
-}: SourceCodeDocumentLanguagesStat): ProjectLanguage[] {
+}: UserWorkspace.LanguagesStatistic): UserWorkspace.Language[] {
   const sourceCodeDocumentLanguagesStats = map(
     ([language, count]) => ({
       count,
-      language: language as ProjectLanguage,
+      language: language as UserWorkspace.Language,
       ratio: sourceCodeDocumentLanguagesRatio[language],
     }),
     toPairs(sourceCodeDocumentLanguagesCount),

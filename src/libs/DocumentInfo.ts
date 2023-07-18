@@ -3,7 +3,7 @@ import { Uri, window, workspace } from 'vscode'
 
 import { InternalError } from './InternalError'
 import { UserError } from './UserError'
-import { getWorkspaceRootPath } from '../utils/getWorkspaceRootPath'
+import { getUserWorkspaceRootPath } from '../utils/getUserWorkspaceRootPath'
 
 export class DocumentInfo {
   #absolutePath: string
@@ -17,7 +17,7 @@ export class DocumentInfo {
       throw new UserError('No active text editor.')
     }
 
-    const workspaceRootPath = getWorkspaceRootPath()
+    const workspaceRootPath = getUserWorkspaceRootPath()
 
     this.#absolutePath = editor.document.uri.fsPath
     this.#extension = extname(this.#absolutePath)
@@ -41,6 +41,10 @@ export class DocumentInfo {
 
   get relativePath(): string {
     return this.#relativePath
+  }
+
+  get workspaceRootPath(): string {
+    return this.#workspaceRootPath
   }
 
   async getSource(): Promise<string> {

@@ -1,10 +1,11 @@
-import { ProgressLocation, window, workspace } from 'vscode'
+import { ProgressLocation, window } from 'vscode'
 
 import { DocumentInfo } from '../libs/DocumentInfo'
 import { stackManager } from '../libs/stackManager'
 import { WebSocketDataAction, type WebSocketData } from '../types'
-import { formatPrompt } from '../utils/formatPrompt'
-import { getCurrentWorkspaceInfo } from '../utils/getCurrentWorkspaceInfo'
+import { getChatGptPrompt } from '../utils/getChatGptPrompt'
+import { getUserSetting } from '../utils/getUserSetting'
+import { getUserWorkspaceInfo } from '../utils/getUserWorkspaceInfo'
 
 import type { WebSocket } from 'ws'
 
@@ -16,8 +17,8 @@ export async function sendCurrentDocument(webSocket: WebSocket) {
     async progress => {
       progress.report({ message: 'OpenAI Forge: Detecting current project Technology Stack...' })
 
-      const excludeProjectInfo = workspace.getConfiguration('openai-forge').get<boolean>('promt.excludeProjectInfo')
-      const currentWorkspaceInfo = !excludeProjectInfo ? await getCurrentWorkspaceInfo() : undefined
+      const excludeProjectInfo = getUserSetting('prompt', 'excludeProjectInfo') || false
+      const currentWorkspaceInfo = !excludeProjectInfo ? await getUserWorkspaceInfo() : undefined
       const currentOrStackDocumentInfos = stackManager.documentInfos.length
         ? stackManager.documentInfos
         : [new DocumentInfo()]
@@ -32,7 +33,7 @@ export async function sendCurrentDocument(webSocket: WebSocket) {
 
       progress.report({ message: 'OpenAI Forge: Sending source code & errors to ChatGPT...' })
 
-      const message = await formatPrompt(currentOrStackDocumentInfos, {
+      const message = await getChatGptPrompt(currentOrStackDocumentInfos, {
         userMessage,
         workspaceInfo: currentWorkspaceInfo,
       })

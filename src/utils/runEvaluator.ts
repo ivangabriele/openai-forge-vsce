@@ -3,12 +3,14 @@ import { relative, sep } from 'path'
 import { intersection } from 'ramda'
 import { ProgressLocation, window } from 'vscode'
 
+import { getUserWorkspaceRootPath } from './getUserWorkspaceRootPath'
+
 import type { DocumentInfo } from '../libs/DocumentInfo'
-import type { WorkspaceInfo } from '../types'
+import type { UserWorkspace } from '../types'
 
 export async function runEvaluator(
   documentInfos: DocumentInfo[],
-  workspaceInfo: WorkspaceInfo,
+  evaluators: UserWorkspace.Evaluator[],
 ): Promise<string | undefined> {
   return window.withProgress<string | undefined>(
     {
@@ -16,9 +18,10 @@ export async function runEvaluator(
     },
     async progress => {
       const documentExtensions = documentInfos.map(documentInfo => documentInfo.extension)
+      const workspaceRootPath = getUserWorkspaceRootPath()
 
       // eslint-disable-next-line no-restricted-syntax
-      for (const evaluator of workspaceInfo.evaluators) {
+      for (const evaluator of evaluators) {
         if (!intersection(evaluator.extensions, documentExtensions).length) {
           // eslint-disable-next-line no-continue
           continue
@@ -26,13 +29,13 @@ export async function runEvaluator(
 
         progress.report({
           message: `Running \`${evaluator.command} ${evaluator.commandArgs.join(' ')}\` in .${sep}${relative(
-            workspaceInfo.rootPath,
-            evaluator.workingDirectoryPath,
+            workspaceRootPath,
+            evaluator.workingDirectoryAbsolutePath,
           )}`,
         })
         // eslint-disable-next-line no-await-in-loop
         const { stderr } = await execa(evaluator.command, evaluator.commandArgs, {
-          cwd: evaluator.workingDirectoryPath,
+          cwd: evaluator.workingDirectoryAbsolutePath,
           reject: false,
         })
 

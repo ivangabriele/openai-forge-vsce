@@ -6,16 +6,14 @@
   "private": true,
   "engines": {
     "node": ">=16",
-    "vscode": "^1.79.2"
+    "vscode": "^1.80.0"
   },
   "main": "./dist/extension.js",
   "scripts": {
     "build": "rollup -c",
-    "build:readme": "mv ./README.md ./README.github.md && mv ./README.dist.md ./README.md",
-    "build:readme:back": "mv ./README.md ./README.dist.md && mv ./README.github.md ./README.md",
-    "bundle": "yarn clean && yarn build && yarn build:readme && (rm -Rf *.vsix || true) && vsce package --yarn && build:readme:back",
+    "bundle": "yarn clean && yarn build && (rm -Rf *.vsix || true) && vsce package --yarn",
     "clean": "rm -Rf ./dist",
-    "release": "yarn build:readme && semantic-release && vsce publish --yarn && yarn build:readme:back",
+    "release": "semantic-release && vsce publish --yarn",
     "test:lint": "eslint .",
     "test:type": "tsc --noEmit",
     "test:unit": "jest --config ./config/jest.config.js"
@@ -57,7 +55,7 @@
     "prettier": "2.8.8",
     "ramda": "0.29.0",
     "rollup": "3.26.2",
-    "rollup-plugin-swc3": "0.9.1",
+    "rollup-plugin-swc3": "0.8.2",
     "semantic-release": "21.0.7",
     "tslib": "2.6.0",
     "typescript": "5.1.6",
@@ -88,8 +86,54 @@
       }
     ],
     "configuration": {
-      "title": "Prompt",
       "properties": {
+        "openai-forge.customEvaluators": {
+          "type": "array",
+          "default": [],
+          "markdownDescription": "[Workspace Setting] Custom evaluators for your current workspace. **You MUST split all the command executable arguments into `commandArgs`**. For example: `yarn build` must be declared as `{ \"command\": \"yarn\", \"commandArgs:\": [\"build\"] }` and **NOT** ~~`{ \"command\": \"yarn build\" }`~~. _Note: OpenAI Forge only supports one evaluator per workspace at the moment._",
+          "items": {
+            "type": "object",
+            "properties": {
+              "command": {
+                "type": "string",
+                "required": true,
+                "description": "Command executable to run.",
+                "examples": [
+                  "cargo",
+                  "make",
+                  "npm"
+                ],
+                "pattern": "^[a-zA-Z0-9_\\-.]+$"
+              },
+              "commandArgs": {
+                "type": "array",
+                "default": [],
+                "description": "Command executable subcommand and arguments to run.",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "extensions": {
+                "type": "array",
+                "required": true,
+                "description": "Source code file extensions triggering this evaluator before being sent to ChatGPT. Examples: `[\".rs\"]`, `[\".js\", \".ts\"]`.",
+                "items": {
+                  "type": "string",
+                  "pattern": "^\\.[a-z]$"
+                },
+                "minItems": 1
+              },
+              "workingDirectoryRelativePath": {
+                "type": "string",
+                "default": ".",
+                "description": "Workspace relative path to the working directory where the command will be executed. Examples: \".\", \"./src-tauri\".",
+                "pattern": "^[a-zA-Z0-9_\\-./]+$"
+              }
+            }
+          },
+          "maxItems": 1,
+          "minItems": 1
+        },
         "openai-forge.promt.excludeProjectInfo": {
           "type": "boolean",
           "default": false,

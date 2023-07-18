@@ -1,4 +1,9 @@
-import { State } from './types'
+import { UserWorkspace } from './types'
+
+export enum DocumentationPath {
+  FAQ = 'docs/FAQ.md',
+  WELCOME = 'docs/WELCOME.md',
+}
 
 export const IGNORED_DIRECTORY_GLOBS = [
   '.git',
@@ -14,18 +19,24 @@ export const IGNORED_DIRECTORY_GLOBS = [
   'vendor',
 ].map(directory => `!**/${directory}/**`)
 
-export const STATE_ICON: Record<State, string> = {
-  [State.FAILED]: 'error',
-  [State.RUNNING]: 'radio-tower',
-  [State.STARTING]: 'gear-spin',
-  [State.STOPPED]: 'circle-slash',
-  [State.STOPPING]: 'gear-spin',
+export enum NotificationAction {
+  NEVER_SHOW_AGAIN = 'Never show again',
+  SHOW_HELP = 'Show Help',
 }
 
-export const STATE_LABEL: Record<State, string> = {
-  [State.FAILED]: 'Failed',
-  [State.RUNNING]: '',
-  [State.STARTING]: 'Starting...',
-  [State.STOPPED]: 'Stopped',
-  [State.STOPPING]: 'Stopping...',
+export const USER_WORKSPACE_LANGUAGE_TO_EXTENSIONS_MAP: Record<UserWorkspace.Language, string[]> = {
+  [UserWorkspace.Language.C_SHARP]: ['cs'],
+  [UserWorkspace.Language.DART]: ['dart'],
+  [UserWorkspace.Language.ELIXIR]: ['ex', 'exs'],
+  [UserWorkspace.Language.GO]: ['go'],
+  [UserWorkspace.Language.HASKELL]: ['hs', 'lhs'],
+  [UserWorkspace.Language.JAVA]: ['java', 'jsp', 'jspx'],
+  [UserWorkspace.Language.JAVASCRIPT]: ['cjs', 'js', 'jsx', 'mjs'],
+  [UserWorkspace.Language.KOTLIN]: ['kt', 'kts'],
+  [UserWorkspace.Language.PHP]: ['php', 'php3', 'php4', 'php5', 'php7', 'phtml'],
+  [UserWorkspace.Language.PYTHON]: ['py', 'pyi', 'pyw'],
+  [UserWorkspace.Language.RUBY]: ['rb'],
+  [UserWorkspace.Language.RUST]: ['rs'],
+  [UserWorkspace.Language.SCALA]: ['scala'],
+  [UserWorkspace.Language.TYPESCRIPT]: ['ts', 'tsx'],
 }

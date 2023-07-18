@@ -1,13 +1,13 @@
-import type { DocumentInfo } from '../libs/DocumentInfo'
-import type { WorkspaceInfo } from '../types'
+import { type DocumentInfo } from '../libs/DocumentInfo'
+import { type UserWorkspace } from '../types'
 
 type FormatPromptOptions = {
   errorOutput?: string
   userMessage?: string | undefined
-  workspaceInfo?: WorkspaceInfo | undefined
+  workspaceInfo?: UserWorkspace.Info | undefined
 }
 
-export async function formatPrompt(
+export async function getChatGptPrompt(
   documentInfos: DocumentInfo[],
   { errorOutput, userMessage, workspaceInfo }: FormatPromptOptions = {},
 ): Promise<string> {

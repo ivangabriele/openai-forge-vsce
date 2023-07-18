@@ -1,6 +1,6 @@
 <p align="center">
-  <img alt="OpenAI Forge Logo" height="128" src="assets/icons/icon.svg" />
-  <img alt="OpenAI Forge Header" width="100%" src="assets/docs/readme-header.svg" />
+  <img alt="OpenAI Forge Logo" height="128" src="assets/icons/x512.png" />
+  <h1 align="center">OpenAI Forge</h1>
 </p>
 
 <p align="center">
@@ -21,24 +21,25 @@
 
 ## Screencast
 
+
+<video src="https://github-production-user-asset-6210df.s3.amazonaws.com/5957876/253832578-fbb5ba36-a9b5-4251-868c-0fa6ef1676b5.mp4" width="100%"></video>
+
 https://github.com/ivangabriele/openai-forge-vsce/assets/5957876/fbb5ba36-a9b5-4251-868c-0fa6ef1676b5
 
-## Requirements
+## Getting Started
 
-**YOU MUST INSTALL [OpenAI Forge Browser Extension](https://github.com/ivangabriele/openai-forge-browser#readme)
-to make this extension work.**
-
-The communication with ChatGPT is done through the browser extension, via WebSocket.
+Check the [WELCOME](docs/WELCOME.md) document to get started.
 
 ## How it works?
 
-The OpenAI Forge VSCode extension runs a WebSocket server while the OpenAI Forge browser extension runs a WebSocket
-client (only when you are have `https://chat.openai.com` open in your browser). That's how VSCode can communicate with
-ChatGPT web application.
+OpenAI Forge VSCode extension runs a WebSocket server while the OpenAI Forge browser extension runs a WebSocket client
+when you have `https://chat.openai.com` open in your browser. That's how VSCode can communicate with ChatGPT web
+application to automatically fill the prompt and submit it.
 
-As for the errors, the OpenAI Forge VSCode extension runs an _evaluator_, that is a CLI command able to output errors
-while attempting to build your code. This _evaluator_ command (and command arguments) is run in a child process, the
-`stderr` output is extracted, embedded along your selected documents source code, and then sent to ChatGPT prompt.
+As for the errors, OpenAI Forge VSCode extension runs an **Evaluator**_**, that is a CLI command able to output errors
+while attempting to compile or lint your code. This _evaluator_ command is run in a child process, its `stderr` output
+is extracted and embedded along your selected documents source code, before being sent to ChatGPT prompt, along with
+your document source code.
 
 ## Features
 
@@ -46,14 +47,19 @@ Directly from Visual Studio Code, you can:
 
 - [x] Send all the source code of one or multiple documents at once
 - [x] Send evaluation errors to ask ChatGPT for fixes
-  - [x] Rust
 - [x] Add a custom message to the generated prompt request (or don't)
 
-### Bonus (for a better ChatGPT contextualization)
+### ChatGPT Prompt Contextualization
 
-- [x] Automatically include documents relative in prompt
-- [x] Automatically "guess" and include some project information in the prompt header (can be disabled in settings)
+OpenAI Forge add some contextual information to the automated prompt message in order to help improve ChatGPT accuracy:
+
+- [x] Source code documents paths
+- [x] Some workspace information "guessed" from you files path and extensions _(can be disabled in settings)_
 
 ## Current limitations
 
+_In progress..._
+
 ## Known issues
+
+_In progress..._

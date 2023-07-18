@@ -1,16 +1,12 @@
 import { basename, extname } from 'path'
 import { countBy, identity, map, mapObjIndexed, sum } from 'ramda'
 
-import { PROJECT_LANGUAGE_TO_EXTENSIONS_MAP } from './getSourceCodeDocumentPaths'
+import { USER_WORKSPACE_LANGUAGE_TO_EXTENSIONS_MAP } from '../constants'
+import { type UserWorkspace } from '../types'
 
-import type { ProjectLanguage } from '../types'
-
-export type SourceCodeDocumentLanguagesStat = {
-  count: Record<ProjectLanguage, number>
-  ratio: Record<ProjectLanguage, number>
-}
-
-export function getSourceCodeDocumentLanguagesStat(sourceCodeDocumentPaths: string[]): SourceCodeDocumentLanguagesStat {
+export function getUserWorkspaceLanguagesStatistic(
+  sourceCodeDocumentPaths: string[],
+): UserWorkspace.LanguagesStatistic {
   const sourceCodeDocumentExtensions: string[] = sourceCodeDocumentPaths.map(sourceCodeDocumentPath =>
     extname(basename(sourceCodeDocumentPath))
       // Remove the leading dot
@@ -25,7 +21,7 @@ export function getSourceCodeDocumentLanguagesStat(sourceCodeDocumentPaths: stri
     )
 
     return languageExtensionsCounts
-  }, PROJECT_LANGUAGE_TO_EXTENSIONS_MAP)
+  }, USER_WORKSPACE_LANGUAGE_TO_EXTENSIONS_MAP)
 
   const sourceCodeDocumentPathsLength = sourceCodeDocumentPaths.length
   const sourceCodeDocumentLanguagesRatio = mapObjIndexed(
