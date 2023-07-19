@@ -55,7 +55,7 @@ jobs:
         run: yarn test:unit
 
   build:
-    name: Type
+    name: Build
     if: ${{ !startsWith(github.ref, 'refs/heads/ci-release-v') }}
     runs-on: ubuntu-latest
     steps:
