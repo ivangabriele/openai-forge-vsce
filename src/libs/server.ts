@@ -49,10 +49,12 @@ class Server {
               [
                 'OpenAI Forge: Handling multiple Visual Studio Code instances is not yet supported.',
                 'Only the first Visual Studio Code instance will be able to communicate with ChatGPT.',
-                'You can close other instances and restart it from the command palette:',
-                '"OpenAI Forge: Restart WebSocket Server".',
+                'You can close other instances and reload this instance from the command palette:',
+                '"Developer: Reload Window".',
+                // 'You can close other instances and restart it from the command palette:',
+                // '"OpenAI Forge: Restart WebSocket Server".',
               ].join(' '),
-              NotificationAction.SHOW_HELP,
+              // NotificationAction.SHOW_HELP,
               NotificationAction.NEVER_SHOW_AGAIN,
             )
 

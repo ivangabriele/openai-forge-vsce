@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { window, type OutputChannel } from 'vscode'
 
 export enum LogLevel {
@@ -8,16 +10,16 @@ export enum LogLevel {
 
 const LOG_LEVELS: string[] = Object.values(LogLevel)
 
-function parseLogArgs(dataOrLevel: any, maybeLevel: LogLevel | undefined): [LogLevel, string | undefined] {
+function parseLogArgs(dataOrLevel: any, maybeLevel: LogLevel | undefined): [LogLevel, string | undefined, any] {
   if (typeof dataOrLevel === 'string' && LOG_LEVELS.includes(dataOrLevel)) {
-    return [dataOrLevel as LogLevel, undefined]
+    return [dataOrLevel as LogLevel, undefined, undefined]
   }
 
   if (maybeLevel !== undefined && maybeLevel) {
-    return [maybeLevel, JSON.stringify(dataOrLevel)]
+    return [maybeLevel, JSON.stringify(dataOrLevel), dataOrLevel]
   }
 
-  return [LogLevel.INFO, undefined]
+  return [LogLevel.INFO, undefined, undefined]
 }
 
 class Logger {
@@ -32,10 +34,12 @@ class Logger {
   log(message: string, data: any): void
   log(message: string, data: any, level: LogLevel): void
   log(message: string, dataOrLevel?: any, maybeLevel?: LogLevel): void {
-    const [level, dataAsString] = parseLogArgs(dataOrLevel, maybeLevel)
+    const [level, dataAsString, data] = parseLogArgs(dataOrLevel, maybeLevel)
 
+    console.debug(`[${level}] ${message}`)
     this.#outputChannel.appendLine(`[${level}] ${message}`)
     if (dataAsString) {
+      console.debug(data)
       this.#outputChannel.appendLine(`⮡ ${JSON.stringify(dataAsString)}`)
     }
   }

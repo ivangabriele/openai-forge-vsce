@@ -1,17 +1,14 @@
-import { join } from 'path'
-import { type ExtensionContext, workspace, commands, window, ViewColumn } from 'vscode'
+import { type ExtensionContext, workspace, commands, ExtensionMode } from 'vscode'
 
 import { addOrRemoveCurrentDocument } from './commands/addOrRemoveCurrentDocument'
 import { evaluateAndSendCurrentDocumentOrStack } from './commands/evaluateAndSendCurrentDocumentOrStack'
 import { sendCurrentDocument } from './commands/sendCurrentDocumentOrStack'
-import { DocumentationPath } from './constants'
+import { welcome } from './commands/welcome'
 import { handleError } from './helpers/handleError'
-import { initializeGlobalStateManager } from './libs/GlobalStateManager'
+import { getGlobalStateManager, initializeGlobalStateManager } from './libs/GlobalStateManager'
 import { server } from './libs/server'
 import { stackManager } from './libs/stackManager'
 import { stateManager } from './libs/stateManager'
-import { getUserWorkspaceRootPath } from './utils/getUserWorkspaceRootPath'
-import { showDocumentation } from './utils/showDocumentation'
 
 export async function activate(context: ExtensionContext) {
   try {
@@ -26,15 +23,9 @@ export async function activate(context: ExtensionContext) {
     // Global State
 
     await initializeGlobalStateManager(context)
-
-    // -------------------------------------------------------------------------
-    // Welcome Documentation
-
-    await showDocumentation(DocumentationPath.WELCOME)
-
-    const workspaceSettingsPath = join(getUserWorkspaceRootPath(), '.vscode', 'settings.json')
-    const settingsDocument = await workspace.openTextDocument(workspaceSettingsPath)
-    await window.showTextDocument(settingsDocument, ViewColumn.Two)
+    if (context.extensionMode === ExtensionMode.Development) {
+      await getGlobalStateManager().clear()
+    }
 
     // -------------------------------------------------------------------------
     // Commands
@@ -67,6 +58,11 @@ export async function activate(context: ExtensionContext) {
     // WebSocket Server
 
     server.start(context)
+
+    // -------------------------------------------------------------------------
+    // Welcome Documentation
+
+    await welcome()
   } catch (err) {
     handleError(err)
 

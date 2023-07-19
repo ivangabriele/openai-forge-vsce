@@ -1,3 +1,5 @@
+import { LogLevel, logger } from './Logger'
+
 export class InternalError extends Error {
   readonly originalError: unknown
 
@@ -7,21 +9,6 @@ export class InternalError extends Error {
     this.name = 'InternalError'
     this.originalError = originalError
 
-    this.#log()
-  }
-
-  toJSON() {
-    return {
-      message: this.message,
-      name: this.name,
-      originalErrorAsString: String(this.originalError),
-      stack: this.stack,
-    }
-  }
-
-  #log() {
-    // eslint-disable-next-line no-null/no-null
-    console.error(this.toJSON(), null, 2)
-    console.error(this.originalError)
+    logger.log(this.message, this.originalError, LogLevel.ERROR)
   }
 }

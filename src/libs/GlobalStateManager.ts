@@ -5,11 +5,13 @@ import { InternalError } from './InternalError'
 export enum GlobalStateKey {
   EXTENSION__ROOT_PATH = 'EXTENSION__ROOT_PATH',
   NOTIFICATION__HIDE_SERVER_PORT_IN_USE_ERROR = 'NOTIFICATION__HIDE_SERVER_PORT_IN_USE_ERROR',
+  ONBOARDING__HIDE_WELCOME_PAGE = 'ONBOARDING__HIDE_WELCOME_PAGE',
 }
 
 type GlobalState = {
   [GlobalStateKey.EXTENSION__ROOT_PATH]: string
   [GlobalStateKey.NOTIFICATION__HIDE_SERVER_PORT_IN_USE_ERROR]: boolean
+  [GlobalStateKey.ONBOARDING__HIDE_WELCOME_PAGE]: boolean
 }
 
 let globalStateManager: GlobalStateManager | undefined
@@ -19,6 +21,18 @@ class GlobalStateManager {
 
   constructor(extensionContext: ExtensionContext) {
     this.#globalState = extensionContext.globalState
+  }
+
+  async clear(): Promise<void> {
+    await Promise.all(
+      this.#globalState
+        .keys()
+        // This key is set by `initializeGlobalStateManager` and must be kept
+        .filter(key => key !== GlobalStateKey.EXTENSION__ROOT_PATH)
+        .map(async key => {
+          await this.#globalState.update(key, undefined)
+        }),
+    )
   }
 
   async get<T extends GlobalStateKey>(key: T): Promise<GlobalState[T] | undefined> {

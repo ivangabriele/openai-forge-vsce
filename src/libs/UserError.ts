@@ -1,8 +1,16 @@
 import { window } from 'vscode'
 
 import { InternalError } from './InternalError'
+import { handleMessageItems } from '../helpers/handleMessageItems'
+import { MessageItemType, type MessageLink } from '../types'
 
-const DEFAULT_MESSAGE = 'Something unexpected happened.'
+const DEFAULT_MESSAGE = 'An internal error occured please.'
+
+const ISSUE_MESSAGE_LINK: MessageLink = {
+  label: 'Open an issue on GitHub',
+  type: MessageItemType.LINK,
+  url: 'https://github.com/ivangabriele/openai-forge-vsce/issues',
+}
 
 export class UserError extends InternalError {
   constructor(message: string = DEFAULT_MESSAGE, originalError?: unknown) {
@@ -10,6 +18,6 @@ export class UserError extends InternalError {
 
     this.name = 'UserError'
 
-    window.showErrorMessage(message)
+    window.showErrorMessage(message, ISSUE_MESSAGE_LINK.label).then(handleMessageItems([ISSUE_MESSAGE_LINK]))
   }
 }

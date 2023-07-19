@@ -58,6 +58,7 @@
     "rollup-plugin-swc3": "0.8.2",
     "semantic-release": "21.0.7",
     "tslib": "2.6.0",
+    "type-fest": "4.0.0",
     "typescript": "5.1.6",
     "ws": "8.13.0"
   },
@@ -119,7 +120,7 @@
                 "description": "Source code file extensions triggering this evaluator before being sent to ChatGPT. Examples: `[\".rs\"]`, `[\".js\", \".ts\"]`.",
                 "items": {
                   "type": "string",
-                  "pattern": "^\\.[a-z]$"
+                  "pattern": "^\\.[a-z]+$"
                 },
                 "minItems": 1
               },

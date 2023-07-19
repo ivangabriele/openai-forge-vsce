@@ -8,9 +8,7 @@
 - [Chrome](https://chrome.google.com/webstore/detail/openai-forge/nnppeeohaoogddcihgdpcolkmibbkked)
 - [Firefox](https://addons.mozilla.org/en-US/firefox/addon/openai-forge/)
 
-### 2. Open a workspace (if not already done)
-
-### 3. Configure the Evaluator
+### 2. Configure the Evaluator
 
 What the heck is an **Evaluator**?
 
@@ -21,9 +19,27 @@ OpenAI Forge use this command to detect errors in your code and send them to Cha
 This command is called:
 `OpenAI Forge: Evaluate errors and send them with the current document or stack` (<kbd>SHIFT + F, E</kbd>).
 
-### 4. Open a [ChatGPT](https://chat.openai.com) chat in your browser
+***Example:***
 
-### 5. Add a few documents to your stack (or not)
+> **⚠️ IMPORTANT: You need to split ALL the command subcommand and arguments in `commandArgs`.**
+
+`.vscode/settings.json`
+
+```json
+{
+  'openai-forge.customEvaluators': [
+    {
+      command: 'npm',
+      commandArgs: ['run', 'build'],
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    },
+  ],
+}
+```
+
+### 3. Open a [ChatGPT](https://chat.openai.com) chat in your browser
+
+### 4. Add a few documents to your stack (or not)
 
 Run the command `OpenAI Forge: Add/Remove current document to/from the stack` (<kbd>SHIFT + F, A</kbd>)
 to select/unselect your currently edited document.
@@ -35,11 +51,11 @@ You can see them in the status bar:
 
 Or don't, if you just want to send your currently edited document alone.
 
-### 6. Send them to ChatGPT
+### 5. Send them to ChatGPT
 
 Run the command `OpenAI Forge: Send current document or stack` (<kbd>SHIFT + F, S</kbd>).
 
-### 7. Useful Key Bindings
+### 6. Useful Key Bindings
 
 All OpenAI Forge default key bindings start with <kbd>SHIFT + F</kbd> (**F** for **F**orge):
 
@@ -47,6 +63,10 @@ All OpenAI Forge default key bindings start with <kbd>SHIFT + F</kbd> (**F** for
 - <kbd>SHIFT + F, E</kbd>: `OpenAI Forge: Evaluate errors and send them with the current document or stack`
 - <kbd>SHIFT + F, S</kbd>: `OpenAI Forge: Send current document or stack`
 
-### 8. Star [my repo](https://github.com/ivangabriele/openai-forge-vsce) if you like it 🥰
+### 7. Star [my repo](https://github.com/ivangabriele/openai-forge-vsce) if you like it 🥰
 
-### 9. May the Forge be with you 🔨!
+### 8. May the Forge be with you 🔨
+
+- Post your ideas and questions [there](https://github.com/ivangabriele/openai-forge-vsce/discussions).
+- Post your issues [there](https://github.com/ivangabriele/openai-forge-vsce/issues).
+- If there is an internal error, you should be able to find it in **Output > OpenAI Forge**.
