@@ -1,3 +1,14 @@
+# [1.2.0](https://github.com/ivangabriele/openai-forge-vsce/compare/v1.1.0...v1.2.0) (2023-07-19)
+
+
+### Features
+
+* add basic top evaluator finder ([afc5510](https://github.com/ivangabriele/openai-forge-vsce/commit/afc55103e4ca2829b2bbfc3fb4826964a891df6e))
+* add custom Evaluators in user settings ([c2672d6](https://github.com/ivangabriele/openai-forge-vsce/commit/c2672d66bc3dcdc9ff67d664796f609499c12af8))
+* add output channel logger lib ([344f5e7](https://github.com/ivangabriele/openai-forge-vsce/commit/344f5e7dd0e9ba3c631b6aea51188845e1d39a41))
+* add welcome page ([2d4ac99](https://github.com/ivangabriele/openai-forge-vsce/commit/2d4ac996b7620081b3bfef31412cda1f84c4e75c))
+* use shift+f as base key for shortcuts instead of alt+f ([3ea0051](https://github.com/ivangabriele/openai-forge-vsce/commit/3ea0051e03709d0aec1125e6a4ca78ca59985628))
+
 # [1.1.0](https://github.com/ivangabriele/openai-forge-vsce/compare/v1.0.0...v1.1.0) (2023-07-16)
 
 
