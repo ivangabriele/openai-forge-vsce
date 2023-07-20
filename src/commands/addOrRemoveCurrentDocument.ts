@@ -1,7 +1,7 @@
 import { window } from 'vscode'
 
 import { DocumentInfo } from '../libs/DocumentInfo'
-import { stackManager } from '../libs/stackManager'
+import { stackManager } from '../libs/StackManager'
 import { getCurrentDocumentPath } from '../utils/getCurrentDocumentPath'
 
 type AddOrRemoveCurrentDocumentArgs = {

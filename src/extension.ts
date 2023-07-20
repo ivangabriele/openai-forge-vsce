@@ -3,12 +3,14 @@ import { type ExtensionContext, workspace, commands, ExtensionMode } from 'vscod
 import { addOrRemoveCurrentDocument } from './commands/addOrRemoveCurrentDocument'
 import { evaluateAndSendCurrentDocumentOrStack } from './commands/evaluateAndSendCurrentDocumentOrStack'
 import { sendCurrentDocument } from './commands/sendCurrentDocumentOrStack'
+import { startOrStopServer } from './commands/startOrStopServer'
 import { welcome } from './commands/welcome'
 import { handleError } from './helpers/handleError'
 import { getGlobalStateManager, initializeGlobalStateManager } from './libs/GlobalStateManager'
-import { server } from './libs/server'
-import { stackManager } from './libs/stackManager'
-import { stateManager } from './libs/stateManager'
+import { logger } from './libs/Logger'
+import { server } from './libs/Server'
+import { stackManager } from './libs/StackManager'
+import { stateManager } from './libs/StateManager'
 
 export async function activate(context: ExtensionContext) {
   try {
@@ -24,6 +26,7 @@ export async function activate(context: ExtensionContext) {
 
     await initializeGlobalStateManager(context)
     if (context.extensionMode === ExtensionMode.Development) {
+      logger.isDevelopment = true
       await getGlobalStateManager().clear()
     }
 
@@ -36,17 +39,18 @@ export async function activate(context: ExtensionContext) {
     )
     const evaluateAndSendCurrentDocumentOrStackDisposable = commands.registerCommand(
       'openai-forge.evaluateAndSendCurrentDocumentOrStack',
-      () => {
-        stateManager.clients.forEach(evaluateAndSendCurrentDocumentOrStack)
-      },
+      evaluateAndSendCurrentDocumentOrStack,
     )
-    const sendCurrentDocumentDisposable = commands.registerCommand('openai-forge.sendCurrentDocument', () => {
-      stateManager.clients.forEach(sendCurrentDocument)
-    })
+    const sendCurrentDocumentDisposable = commands.registerCommand(
+      'openai-forge.sendCurrentDocument',
+      sendCurrentDocument,
+    )
+    const startOrStopServerDisposable = commands.registerCommand('openai-forge.startOrStopServer', startOrStopServer)
 
     context.subscriptions.push(addOrRemoveCurrentDocumentDisposable)
     context.subscriptions.push(evaluateAndSendCurrentDocumentOrStackDisposable)
     context.subscriptions.push(sendCurrentDocumentDisposable)
+    context.subscriptions.push(startOrStopServerDisposable)
 
     // -------------------------------------------------------------------------
     // Status Bar Items
@@ -57,7 +61,7 @@ export async function activate(context: ExtensionContext) {
     // -------------------------------------------------------------------------
     // WebSocket Server
 
-    server.start(context)
+    server.start()
 
     // -------------------------------------------------------------------------
     // Welcome Documentation
@@ -71,6 +75,6 @@ export async function activate(context: ExtensionContext) {
   }
 }
 
-export function deactivate() {
-  server.stop()
+export async function deactivate() {
+  await server.stop()
 }

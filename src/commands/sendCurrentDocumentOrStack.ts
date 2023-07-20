@@ -1,15 +1,14 @@
 import { ProgressLocation, window } from 'vscode'
 
 import { DocumentInfo } from '../libs/DocumentInfo'
-import { stackManager } from '../libs/stackManager'
-import { WebSocketDataAction, type WebSocketData } from '../types'
+import { server } from '../libs/Server'
+import { stackManager } from '../libs/StackManager'
+import { Communication } from '../types'
 import { getChatGptPrompt } from '../utils/getChatGptPrompt'
 import { getUserSetting } from '../utils/getUserSetting'
 import { getUserWorkspaceInfo } from '../utils/getUserWorkspaceInfo'
 
-import type { WebSocket } from 'ws'
-
-export async function sendCurrentDocument(webSocket: WebSocket) {
+export async function sendCurrentDocument() {
   await window.withProgress(
     {
       location: ProgressLocation.Notification,
@@ -33,16 +32,16 @@ export async function sendCurrentDocument(webSocket: WebSocket) {
 
       progress.report({ message: 'OpenAI Forge: Sending source code & errors to ChatGPT...' })
 
-      const message = await getChatGptPrompt(currentOrStackDocumentInfos, {
+      const messageMessage = await getChatGptPrompt(currentOrStackDocumentInfos, {
         userMessage,
         workspaceInfo: currentWorkspaceInfo,
       })
-      const webSocketData: WebSocketData = {
-        action: WebSocketDataAction.ASK,
-        message,
+      const message: Communication.Message = {
+        action: Communication.MessageAction.ASK,
+        message: messageMessage,
       }
 
-      webSocket.send(JSON.stringify(webSocketData))
+      server.send(message)
     },
   )
 }

@@ -19,20 +19,14 @@ export type MessageLink = {
 
 export enum State {
   'FAILED' = 'FAILED',
+  'RESTARTING' = 'RESTARTING',
   'RUNNING' = 'RUNNING',
   'STARTING' = 'STARTING',
   'STOPPED' = 'STOPPED',
   'STOPPING' = 'STOPPING',
+  'WILL_RESTART' = 'WILL_RESTART',
 }
 
-export enum WebSocketDataAction {
-  ASK = 'ASK',
-}
-
-export type WebSocketData = {
-  action: WebSocketDataAction
-  message: string
-}
-
+export { Communication } from './Communication'
 export { type UserSettings } from './UserSettings'
 export { UserWorkspace } from './UserWorkspace'

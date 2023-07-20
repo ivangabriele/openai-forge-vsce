@@ -1,17 +1,16 @@
 import { ProgressLocation, window } from 'vscode'
 
 import { DocumentInfo } from '../libs/DocumentInfo'
-import { stackManager } from '../libs/stackManager'
-import { WebSocketDataAction, type WebSocketData } from '../types'
+import { server } from '../libs/Server'
+import { stackManager } from '../libs/StackManager'
+import { Communication } from '../types'
 import { getChatGptPrompt } from '../utils/getChatGptPrompt'
 import { getUserSetting } from '../utils/getUserSetting'
 import { getUserWorkspaceEvaluators } from '../utils/getUserWorkspaceEvaluators'
 import { getUserWorkspaceInfo } from '../utils/getUserWorkspaceInfo'
 import { runEvaluator } from '../utils/runEvaluator'
 
-import type { WebSocket } from 'ws'
-
-export async function evaluateAndSendCurrentDocumentOrStack(webSocket: WebSocket) {
+export async function evaluateAndSendCurrentDocumentOrStack() {
   await window.withProgress(
     {
       location: ProgressLocation.Notification,
@@ -38,16 +37,16 @@ export async function evaluateAndSendCurrentDocumentOrStack(webSocket: WebSocket
       progress.report({ message: 'OpenAI Forge: Sending source code & errors to ChatGPT...' })
 
       const excludeProjectInfo = getUserSetting('prompt', 'excludeProjectInfo') || false
-      const message = await getChatGptPrompt(currentOrStackDocumentInfos, {
+      const messageMessage = await getChatGptPrompt(currentOrStackDocumentInfos, {
         errorOutput,
         workspaceInfo: !excludeProjectInfo ? workspaceInfo : undefined,
       })
-      const webSocketData: WebSocketData = {
-        action: WebSocketDataAction.ASK,
-        message,
+      const message: Communication.Message = {
+        action: Communication.MessageAction.ASK,
+        message: messageMessage,
       }
 
-      webSocket.send(JSON.stringify(webSocketData))
+      server.send(message)
     },
   )
 }

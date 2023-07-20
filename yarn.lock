@@ -3761,6 +3761,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cuid@npm:3.0.0":
+  version: 3.0.0
+  resolution: "cuid@npm:3.0.0"
+  checksum: f9a344bd90e26b62f75a86b616ad717bad88b20b02df25c6e4008dd2c0948b081bd72ad8075b25ae644dce7fc367a43c622954e88aed972b72b1f132416faa4e
+  languageName: node
+  linkType: hard
+
 "dateformat@npm:^3.0.0, dateformat@npm:^3.0.3":
   version: 3.0.3
   resolution: "dateformat@npm:3.0.3"
@@ -8552,6 +8559,7 @@ __metadata:
     "@typescript-eslint/parser": 6.0.0
     "@vscode/test-electron": 2.3.3
     "@vscode/vsce": 2.19.0
+    cuid: 3.0.0
     eslint: 8.45.0
     eslint-config-airbnb: 19.0.4
     eslint-config-airbnb-typescript: 17.1.0

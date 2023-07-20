@@ -23,10 +23,23 @@ function parseLogArgs(dataOrLevel: any, maybeLevel: LogLevel | undefined): [LogL
 }
 
 class Logger {
+  #isDevelopment: boolean = false
   #outputChannel: OutputChannel
 
   constructor() {
     this.#outputChannel = window.createOutputChannel('OpenAI Forge')
+  }
+
+  set isDevelopment(isDevelopment: boolean) {
+    this.#isDevelopment = isDevelopment
+  }
+
+  debug(...args: any[]): void {
+    if (!this.#isDevelopment) {
+      return
+    }
+
+    console.debug(...args)
   }
 
   log(message: string): void
