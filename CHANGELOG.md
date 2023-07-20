@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/ivangabriele/openai-forge-vsce/compare/v1.2.1...v1.3.0) (2023-07-20)
+
+
+### Features
+
+* handle multiple instances via WebSocket satellites ([783e82f](https://github.com/ivangabriele/openai-forge-vsce/commit/783e82f3efa2bd7f3e56ad76cd5d91e8368696a7))
+
 ## [1.2.1](https://github.com/ivangabriele/openai-forge-vsce/compare/v1.2.0...v1.2.1) (2023-07-20)
 
 
