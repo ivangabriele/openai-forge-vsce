@@ -2,7 +2,7 @@
   "name": "openai-forge",
   "description": "OpenAI Forge Visual Studio Code Extension",
   "license": "AGPL-3.0-or-later",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": true,
   "engines": {
     "node": ">=16",

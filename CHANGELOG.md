@@ -1,3 +1,12 @@
+## [1.2.1](https://github.com/ivangabriele/openai-forge-vsce/compare/v1.2.0...v1.2.1) (2023-07-20)
+
+
+### Bug Fixes
+
+* change base command to ALT/OPTION+F ([3754997](https://github.com/ivangabriele/openai-forge-vsce/commit/3754997806a92201b84d1da40fc45c7e02dcd5c0))
+* **commands:** handle nonexistent settings file case in welcome() ([00d359e](https://github.com/ivangabriele/openai-forge-vsce/commit/00d359e3c6fc47e7a9c7abeda24aa4f8f913ef67))
+* **libs:** fix UserError default message ([d411393](https://github.com/ivangabriele/openai-forge-vsce/commit/d4113936cc8f715a24a32b966b7f754004f7fd1c))
+
 # [1.2.0](https://github.com/ivangabriele/openai-forge-vsce/compare/v1.1.0...v1.2.0) (2023-07-19)
 
 
