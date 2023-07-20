@@ -17,7 +17,7 @@ It's a combination of files extension with a command able to generate error when
 OpenAI Forge use this command to detect errors in your code and send them to ChatGPT, along with the documents you selected, to automatically prompt for a fixed version of your code.
 
 This command is called:
-`OpenAI Forge: Evaluate errors and send them with the current document or stack` (<kbd>SHIFT + F, E</kbd>).
+`OpenAI Forge: Evaluate errors and send them with the current document or stack` (<kbd>ALT/OPTION + F, E</kbd>).
 
 ***Example:***
 
@@ -41,7 +41,7 @@ This command is called:
 
 ### 4. Add a few documents to your stack (or not)
 
-Run the command `OpenAI Forge: Add/Remove current document to/from the stack` (<kbd>SHIFT + F, A</kbd>)
+Run the command `OpenAI Forge: Add/Remove current document to/from the stack` (<kbd>ALT/OPTION + F, A</kbd>)
 to select/unselect your currently edited document.
 
 You can see them in the status bar:
@@ -53,15 +53,15 @@ Or don't, if you just want to send your currently edited document alone.
 
 ### 5. Send them to ChatGPT
 
-Run the command `OpenAI Forge: Send current document or stack` (<kbd>SHIFT + F, S</kbd>).
+Run the command `OpenAI Forge: Send current document or stack` (<kbd>ALT/OPTION + F, S</kbd>).
 
 ### 6. Useful Key Bindings
 
-All OpenAI Forge default key bindings start with <kbd>SHIFT + F</kbd> (**F** for **F**orge):
+All OpenAI Forge default key bindings start with <kbd>ALT/OPTION + F</kbd> (**F** for **F**orge):
 
-- <kbd>SHIFT + F, A</kbd>: `OpenAI Forge: Add/Remove current document to/from the stack`
-- <kbd>SHIFT + F, E</kbd>: `OpenAI Forge: Evaluate errors and send them with the current document or stack`
-- <kbd>SHIFT + F, S</kbd>: `OpenAI Forge: Send current document or stack`
+- <kbd>ALT/OPTION + F, A</kbd>: `OpenAI Forge: Add/Remove current document to/from the stack`
+- <kbd>ALT/OPTION + F, E</kbd>: `OpenAI Forge: Evaluate errors and send them with the current document or stack`
+- <kbd>ALT/OPTION + F, S</kbd>: `OpenAI Forge: Send current document or stack`
 
 ### 7. Star [my repo](https://github.com/ivangabriele/openai-forge-vsce) if you like it 🥰
 

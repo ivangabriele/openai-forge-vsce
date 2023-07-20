@@ -145,32 +145,31 @@
     "keybindings": [
       {
         "command": "openai-forge.addOrRemoveCurrentDocument",
-        "key": "shift+f a",
-        "when": "editorTextFocus"
+        "key": "alt+f a"
       },
       {
         "command": "openai-forge.addOrRemoveCurrentDocument",
-        "key": "shift+f shift+a",
+        "key": "alt+f alt+a",
         "when": "editorTextFocus"
       },
       {
         "command": "openai-forge.evaluateAndSendCurrentDocumentOrStack",
-        "key": "shift+f e",
+        "key": "alt+f e",
         "when": "editorTextFocus"
       },
       {
         "command": "openai-forge.evaluateAndSendCurrentDocumentOrStack",
-        "key": "shift+f shift+e",
+        "key": "alt+f alt+e",
         "when": "editorTextFocus"
       },
       {
         "command": "openai-forge.sendCurrentDocument",
-        "key": "shift+f s",
+        "key": "alt+f s",
         "when": "editorTextFocus"
       },
       {
         "command": "openai-forge.sendCurrentDocument",
-        "key": "shift+f shift+s",
+        "key": "alt+f alt+s",
         "when": "editorTextFocus"
       }
     ]
