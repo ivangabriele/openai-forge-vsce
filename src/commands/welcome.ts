@@ -1,5 +1,6 @@
+import { existsSync } from 'fs'
 import { join } from 'path'
-import { Position, Range, ViewColumn, WorkspaceEdit, window, workspace } from 'vscode'
+import { Position, Range, Uri, ViewColumn, WorkspaceEdit, window, workspace } from 'vscode'
 
 import { DocumentationPath } from '../constants'
 import { handleMessageItems } from '../helpers/handleMessageItems'
@@ -26,6 +27,9 @@ export async function welcome() {
   await showDocumentation(DocumentationPath.WELCOME)
 
   const workspaceSettingsPath = join(getUserWorkspaceRootPath(), '.vscode', 'settings.json')
+  if (!existsSync(workspaceSettingsPath)) {
+    await workspace.fs.writeFile(Uri.file(workspaceSettingsPath), Buffer.from('{}'))
+  }
   const workspaceSettingsDocument = await workspace.openTextDocument(workspaceSettingsPath)
   const workspaceSettingsText = workspaceSettingsDocument.getText()
 
