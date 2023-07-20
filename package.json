@@ -154,28 +154,23 @@
       },
       {
         "command": "openai-forge.addOrRemoveCurrentDocument",
-        "key": "alt+f alt+a",
-        "when": "editorTextFocus"
+        "key": "alt+f alt+a"
       },
       {
         "command": "openai-forge.evaluateAndSendCurrentDocumentOrStack",
-        "key": "alt+f e",
-        "when": "editorTextFocus"
+        "key": "alt+f e"
       },
       {
         "command": "openai-forge.evaluateAndSendCurrentDocumentOrStack",
-        "key": "alt+f alt+e",
-        "when": "editorTextFocus"
+        "key": "alt+f alt+e"
       },
       {
         "command": "openai-forge.sendCurrentDocument",
-        "key": "alt+f s",
-        "when": "editorTextFocus"
+        "key": "alt+f s"
       },
       {
         "command": "openai-forge.sendCurrentDocument",
-        "key": "alt+f alt+s",
-        "when": "editorTextFocus"
+        "key": "alt+f alt+s"
       }
     ]
   },
