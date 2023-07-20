@@ -4,7 +4,7 @@ import { InternalError } from './InternalError'
 import { handleMessageItems } from '../helpers/handleMessageItems'
 import { MessageItemType, type MessageLink } from '../types'
 
-const DEFAULT_MESSAGE = 'An internal error occured please.'
+const DEFAULT_MESSAGE = 'An internal error occured. Please check your Output > OpenAI Forge logs and report it.'
 
 const ISSUE_MESSAGE_LINK: MessageLink = {
   label: 'Open an issue on GitHub',
