@@ -57,7 +57,7 @@
     "ramda": "0.29.0",
     "rollup": "3.26.2",
     "rollup-plugin-swc3": "0.8.2",
-    "semantic-release": "21.0.7",
+    "semantic-release": "22.0.5",
     "tslib": "2.6.0",
     "type-fest": "4.0.0",
     "typescript": "5.1.6",
