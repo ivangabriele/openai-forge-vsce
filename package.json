@@ -21,7 +21,7 @@
   "devDependencies": {
     "@ivangabriele/eslint-config-typescript-base": "7.1.1",
     "@ivangabriele/prettier-config": "3.1.0",
-    "@ivangabriele/semantic-release-config-no-npm": "3.0.3",
+    "@ivangabriele/semantic-release-config-no-npm": "4.1.5",
     "@ivangabriele/tsconfig-node": "1.2.2",
     "@rollup/plugin-commonjs": "25.0.7",
     "@rollup/plugin-node-resolve": "15.2.3",
