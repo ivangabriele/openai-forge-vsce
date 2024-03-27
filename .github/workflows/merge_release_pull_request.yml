@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Merge pull request
-        uses: pascalgn/automerge-action@v0.15.6
+        uses: pascalgn/automerge-action@v0.16.2
         # https://github.com/pascalgn/automerge-action#configuration
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
