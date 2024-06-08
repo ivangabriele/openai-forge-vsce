@@ -733,12 +733,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ivangabriele/prettier-config@npm:3.2.0":
-  version: 3.2.0
-  resolution: "@ivangabriele/prettier-config@npm:3.2.0"
+"@ivangabriele/prettier-config@npm:5.0.1":
+  version: 5.0.1
+  resolution: "@ivangabriele/prettier-config@npm:5.0.1"
   peerDependencies:
-    prettier: ^3.0.0
-  checksum: 10c0/e06361c0d4eb7924b30d6b1fb2979c1c0bf6322c899b5aca852d090db027b3b48d26d5fb4cc78fb8a8c13690278c975f280070ade1693166a929c1534973fea1
+    prettier: ^3
+  checksum: 10c0/4d2da223c96b213fefaa748add630cb11579c2515f45cfafaf1dba48668c20d57782c5b6c87c0784f49472ded0b49f91de78cf8da3789f05c29cfcebee84c83b
   languageName: node
   linkType: hard
 
@@ -10423,7 +10423,7 @@ __metadata:
   resolution: "openai-forge@workspace:."
   dependencies:
     "@ivangabriele/eslint-config-typescript-base": "npm:7.1.1"
-    "@ivangabriele/prettier-config": "npm:3.2.0"
+    "@ivangabriele/prettier-config": "npm:5.0.1"
     "@ivangabriele/semantic-release-config-no-npm": "npm:3.0.3"
     "@ivangabriele/tsconfig-node": "npm:1.2.2"
     "@rollup/plugin-commonjs": "npm:25.0.8"
